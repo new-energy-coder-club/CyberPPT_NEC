@@ -1,0 +1,29 @@
+name: Mirror to Gitee & AtomGit
+
+on:
+  push:
+    branches: ["**"]
+    tags: ["**"]
+  workflow_dispatch:
+
+concurrency:
+  group: mirror-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to Gitee (CyberPPT_NEC)
+        run: |
+          git push "https://darrenpig:${{ secrets.GITEE_TOKEN }}@gitee.com/darrenpig/CyberPPT_NEC.git" \
+            --all --tags --force 2>&1 | grep -v "remote:" || true
+
+      - name: Push to AtomGit (CyberPPT_NEC)
+        run: |
+          git push "https://Darrenpig:${{ secrets.ATOMGIT_TOKEN }}@atomgit.com/Darrenpig/CyberPPT_NEC.git" \
+            --all --tags --force 2>&1 | grep -v "remote:" || true
