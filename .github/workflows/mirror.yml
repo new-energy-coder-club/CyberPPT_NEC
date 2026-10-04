@@ -25,5 +25,5 @@ jobs:
 
       - name: Push to AtomGit (CyberPPT_NEC)
         run: |
-          git push "https://Darrenpig:${{ secrets.ATOMGIT_TOKEN }}@atomgit.com/Darrenpig/CyberPPT_NEC.git" \
+          git push "https://Darrenpig:${{ secrets.ATOMGIT_TOKEN }}@atomgit.com/cnec/CyberPPT_NEC.git" \
             --all --tags --force 2>&1 | grep -v "remote:" || true
